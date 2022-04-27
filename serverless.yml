@@ -21,6 +21,11 @@ functions:
         description: Compress file stored in S3 buckets
         memorySize: 128
         timeout: 180
+    delete-original-archives:
+        handler: lambdas/delete-original-archives/handler.handler
+        description: Delete original archives
+        memorySize: 128
+        timeout: 180
     authenticate-google:
         handler: lambdas/authenticate-google/handler.handler
         description: Google Cognito Authentication
@@ -41,10 +46,3 @@ functions:
                   path: pre-signed-url
                   method: post
                   cors: true
-        # vpc:
-        #     subnetIds:
-        #         - 'subnet-029df28d646e9bb6c'
-        #         - 'subnet-079edf851820227c9'
-        #         - 'subnet-066c7c7109c239ec5'
-        #     securityGroupIds:
-        #         - 'sg-0e3b6e2c960d8ad82'
