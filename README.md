@@ -1,6 +1,6 @@
 # DATA COMPRESS
 
-Enlazado al pipeline de Gitlab, realiza el despliegue de las lambdas y sus respectivas configuraciones.
+Realiza el despliegue de las lambdas y sus respectivas configuraciones.
 
 Para correr el lambda en local antes de hacer un push a la rama de despliegue `master`, se debe instalar SLS.
 
