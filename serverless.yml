@@ -1,0 +1,50 @@
+service: datacompress
+
+variablesResolutionMode: 20210326
+useDotenv: true
+
+plugins:
+    - serverless-offline
+    - serverless-dotenv-plugin
+    - serverless-python-requirements
+provider:
+    name: aws
+    runtime: python3.8
+    region: us-east-1
+    lambdaHashingVersion: 20201221
+    tags:
+        PROYECT: DATA-COMPRESS
+
+functions:
+    read-and-compress:
+        handler: lambdas/read-and-compress/handler.handler
+        description: Compress file stored in S3 buckets
+        memorySize: 128
+        timeout: 180
+    authenticate-google:
+        handler: lambdas/authenticate-google/handler.handler
+        description: Google Cognito Authentication
+        memorySize: 128
+        timeout: 180
+        events:
+            - http:
+                  path: auth
+                  method: get
+                  cors: true
+    pre-signed-url:
+        handler: lambdas/pre-signed-url/handler.handler
+        description: Pre Signed URL
+        memorySize: 128
+        timeout: 180
+        events:
+            - http:
+                  path: pre-signed-url
+                  method: post
+                  cors: true
+        # vpc:
+        #     subnetIds:
+        #         - 'subnet-029df28d646e9bb6c'
+        #         - 'subnet-079edf851820227c9'
+        #         - 'subnet-066c7c7109c239ec5'
+        #     securityGroupIds:
+        #         - 'sg-0e3b6e2c960d8ad82'

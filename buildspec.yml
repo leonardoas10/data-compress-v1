@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+    install:
+        commands:
+            - echo Installing Serverless...
+            - npm -g config set user root && npm install -g serverless
+    pre_build:
+        commands:
+            - echo Install source NPM dependencies...
+            - npm install
+            - python setup.py install
+    build:
+        commands:
+            - echo Deployment started on `date`
+            - echo Deploying with the Serverless Framework
+            - sls deploy -s $ENV_NAME
+    post_build:
+        commands:
+            - echo Deployment completed on `date`
