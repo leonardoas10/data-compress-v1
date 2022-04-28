@@ -21,6 +21,11 @@ functions:
         description: Compress file stored in S3 buckets
         memorySize: 128
         timeout: 180
+        environment:
+            DB_HOST: 'datacompress.c7s82rautvg8.us-east-1.rds.amazonaws.com'
+            DB_USERNAME: 'admin'
+            DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
+            DB_DATABASE: 'datacompress'
     delete-original-archives:
         handler: lambdas/delete-original-archives/handler.handler
         description: Delete original archives
@@ -31,6 +36,8 @@ functions:
         description: Google Cognito Authentication
         memorySize: 128
         timeout: 180
+        environment:
+            IDENTITY_POOL_ID: 'us-east-1:d8b354dc-890e-449a-aa63-3fb78ecaee88'
         events:
             - http:
                   path: auth
@@ -41,6 +48,11 @@ functions:
         description: Pre Signed URL
         memorySize: 128
         timeout: 180
+        environment:
+            DB_HOST: 'datacompress.c7s82rautvg8.us-east-1.rds.amazonaws.com'
+            DB_USERNAME: 'admin'
+            DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
+            DB_DATABASE: 'datacompress'
         events:
             - http:
                   path: pre-signed-url

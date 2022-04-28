@@ -1,7 +1,6 @@
 import boto3
 import json
-
-identity_pool_id = 'us-east-1:d8b354dc-890e-449a-aa63-3fb78ecaee88'
+import os
 
 def handler(event, context) -> str:
     try:
@@ -10,7 +9,7 @@ def handler(event, context) -> str:
         identity_client = boto3.client('cognito-identity')
 
         id_response = identity_client.get_id(
-            IdentityPoolId='us-east-1:d8b354dc-890e-449a-aa63-3fb78ecaee88',
+            IdentityPoolId= os.getenv('IDENTITY_POOL_ID'),
             Logins={
                 'accounts.google.com': id_token
             }
