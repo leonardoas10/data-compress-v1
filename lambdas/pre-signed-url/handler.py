@@ -48,16 +48,16 @@ def handler(event, context):
             val = (user_id, name, extension, data['types'][index], data['sizes'][index], file['path'])
             cursor.execute(sql_file, val)
             db.commit()
-            # key = "uploads/{}".format(file['path'])
+            custom_key = "{}/{}".format(user_id, file['path'])
             presigned_url = s3.generate_presigned_url(
                 ClientMethod='put_object',
                 Params={
                     'Bucket': 'before-compress-files',
-                    'Key': file['path'],
+                    'Key': custom_key,
                     'ContentType' : data['types'][index]
                 }
             )
-            urls[file['path']] = presigned_url
+            urls[custom_key] = presigned_url
 
           
         duration = datetime.now() - init_time
@@ -68,7 +68,10 @@ def handler(event, context):
             'headers': {
                 'Access-Control-Allow-Origin': '*'
             },
-            'body': json.dumps(urls),
+            'body': json.dumps({
+                    'urls': urls,
+                    'user_id': user_id
+                    }, sort_keys=True)
         }
     except Exception as e:
         print('Error => ', e)

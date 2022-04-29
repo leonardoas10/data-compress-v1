@@ -45,7 +45,10 @@ def handler(event, context):
         archive.close()
 ## ZIP FILE WITH PYTHON ZIP PACKAGE ###
 
-        sql_get_file = "SELECT * FROM files WHERE name_extension = '{}' AND size = '{}' ORDER BY created_at DESC LIMIT 1".format(key_decoded, size)
+        split_key_decoded = key_decoded.split("/", 1)
+        print(split_key_decoded)
+
+        sql_get_file = "SELECT * FROM files WHERE name_extension = '{}' AND size = '{}' ORDER BY created_at DESC LIMIT 1".format(split_key_decoded[1], size)
         cursor.execute(sql_get_file)
         fetch_file = cursor.fetchall()[0]
         s3_url = os.getenv("S3_URL")
