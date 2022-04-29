@@ -12,6 +12,8 @@ db = mysql.connector.connect(
     database=os.getenv("DB_DATABASE")
 )
 
+cursor = db.cursor(dictionary=True)
+
 s3 = boto3.resource('s3')
 
 def handler(event, context):
@@ -42,8 +44,6 @@ def handler(event, context):
         s3.Object('after-compress-files',complete_file_name).upload_fileobj(archive)
         archive.close()
 ## ZIP FILE WITH PYTHON ZIP PACKAGE ###
-
-        cursor = db.cursor(dictionary=True)
 
         sql_get_file = "SELECT * FROM files WHERE name_extension = '{}' AND size = '{}' ORDER BY created_at DESC LIMIT 1".format(key_decoded, size)
         cursor.execute(sql_get_file)
