@@ -15,6 +15,11 @@ provider:
     tags:
         PROYECT: DATA-COMPRESS
 
+package:
+    patterns:
+        - '!node_modules/**'
+        - '!env/**'
+
 functions:
     read-and-compress:
         handler: lambdas/read-and-compress/handler.handler
@@ -26,11 +31,13 @@ functions:
             DB_USERNAME: 'admin'
             DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
             DB_DATABASE: 'datacompress'
+        role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
     delete-original-archives:
         handler: lambdas/delete-original-archives/handler.handler
         description: Delete original archives
         memorySize: 128
         timeout: 180
+        role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
     authenticate-google:
         handler: lambdas/authenticate-google/handler.handler
         description: Google Cognito Authentication
@@ -45,9 +52,10 @@ functions:
                   cors: true
     pre-signed-url:
         handler: lambdas/pre-signed-url/handler.handler
-        description: Pre Signed URL
+        description: Pre Signed URL & Store User If Not Exist
         memorySize: 128
         timeout: 180
+        role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
         environment:
             DB_HOST: 'datacompress.c7s82rautvg8.us-east-1.rds.amazonaws.com'
             DB_USERNAME: 'admin'

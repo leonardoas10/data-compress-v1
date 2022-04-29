@@ -17,27 +17,31 @@ def handler(event, context):
     try:
         init_time = datetime.now()
         print('Init Lambda => ', init_time)
+        
         data = json.loads(event['body'])
         user = data['user']
         cursor = db.cursor(dictionary=True)
-        # sql_user = "INSERT INTO users (email, firstname, lastname, profile_img) VALUES (%s, %s, %s, %s)" 
-        # print(user['email'], user['givenName'], user['familyName'], user['imageUrl'])
-        # val = (user['email'], user['givenName'], user['familyName'], user['imageUrl'])
-        # cursor.execute(sql_user, val)
-        # db.commit()
-        sql_get_user = "SELECT * FROM users WHERE email = '{}'".format(user['email'])
-        print(sql_get_user)
-        cursor.execute(sql_get_user)
-        user_id = cursor.fetchall()[0]['id']
-        print('user_id => ', user_id)
 
+        sql_get_user = "SELECT * FROM users WHERE email = '{}'".format(user['email'])
+        cursor.execute(sql_get_user)
+        fetch_user = cursor.fetchall()
+        exist_user = len(fetch_user)
+
+        if exist_user == 0: ## CREATE NEW USER
+            sql_user = "INSERT INTO users (email, firstname, lastname, profile_img) VALUES (%s, %s, %s, %s)" 
+            val = (user['email'], user['givenName'], user['familyName'], user['imageUrl'])
+            cursor.execute(sql_user, val)
+            db.commit()
+            cursor.execute(sql_get_user)
+            user_id = cursor.fetchall()[0]['id']
+        else:
+            user_id = fetch_user[0]['id']
 
         urls = dict()
         
-        print(data)
         files = enumerate(data['files'])
         for index, file in files:
-            split_path = file['path'].split('.')
+            split_path = file['path'].rsplit(".", 1)
             name = split_path[0]
             extension = split_path[-1]
             sql_file = "INSERT INTO files (user_id, name, extension, type, size, name_extension) VALUES (%s, %s, %s, %s, %s, %s)" 
