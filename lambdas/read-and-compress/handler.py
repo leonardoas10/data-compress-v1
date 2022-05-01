@@ -15,6 +15,7 @@ db = mysql.connector.connect(
 cursor = db.cursor(dictionary=True)
 
 s3 = boto3.resource('s3')
+# client = boto3.client('s3')
 
 def handler(event, context):
     try:
@@ -39,11 +40,15 @@ def handler(event, context):
                 file1.write(body)
                 print('Wroted and closed')  
 
+
         print('Upload file to s3.')
         archive.seek(0)
         s3.Object('after-compress-files',complete_file_name).upload_fileobj(archive)
         archive.close()
 ## ZIP FILE WITH PYTHON ZIP PACKAGE ###
+
+        # zip_file = client.head_object(Bucket='after-compress-files',Key=complete_file_name)
+        # print('zip_file => ', zip_file)
 
         split_key_decoded = key_decoded.split("/", 1)
         print(split_key_decoded)

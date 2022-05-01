@@ -81,3 +81,26 @@ functions:
                 - 'subnet-015eb033be16f968f'
             securityGroupIds:
                 - 'sg-056b5faca088fae6c'
+    get-compressed-files:
+        handler: lambdas/get-compressed-files/handler.handler
+        description: Get Compressed files by email
+        memorySize: 128
+        timeout: 180
+        environment:
+            DB_HOST: 'datacompress.c7s82rautvg8.us-east-1.rds.amazonaws.com'
+            DB_USERNAME: 'admin'
+            DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
+            DB_DATABASE: 'datacompress'
+        role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
+        events:
+            - http:
+                  path: get-compressed-files
+                  method: post
+                  cors: true
+        vpc:
+            subnetIds:
+                - 'subnet-07d11a6f1648decfa'
+                - 'subnet-0501a15d691993d19'
+                - 'subnet-015eb033be16f968f'
+            securityGroupIds:
+                - 'sg-056b5faca088fae6c'
