@@ -22,13 +22,16 @@ def handler(event, context):
         sql_get_files= "SELECT files.id, files.name_extension, files.updated_at, files.s3_url FROM users, files WHERE users.email = '{}' AND files.is_compress = 1".format(user['email'])
         cursor.execute(sql_get_files)
         files = cursor.fetchall()
+        db.commit()
+
+        print('files => ', files)
         
         return {
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*'
             },
-            'body': json.dumps(files)
+            'body': json.dumps(files,indent=4, sort_keys=True, default=str)
         }
     except Exception as e:
         print('Error handler() => ', e)
