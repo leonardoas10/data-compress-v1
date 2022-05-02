@@ -62,7 +62,6 @@ def handler(event, context):
           
         duration = datetime.now() - init_time
         print('Finish Time in seconds => ', duration.total_seconds())
-
         return {
             'statusCode': 200,
             'headers': {

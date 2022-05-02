@@ -9,7 +9,7 @@ plugins:
     - serverless-python-requirements
 provider:
     name: aws
-    runtime: python3.8
+    runtime: python3.9
     region: us-east-1
     lambdaHashingVersion: 20201221
     tags:
@@ -24,8 +24,8 @@ functions:
     read-and-compress:
         handler: lambdas/read-and-compress/handler.handler
         description: Compress file stored in S3 buckets
-        memorySize: 128
-        timeout: 180
+        memorySize: 10240
+        timeout: 900
         environment:
             DB_HOST: 'datacompress.c7s82rautvg8.us-east-1.rds.amazonaws.com'
             DB_USERNAME: 'admin'
@@ -46,6 +46,12 @@ functions:
         memorySize: 128
         timeout: 180
         role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
+    # split-object:
+    #     handler: lambdas/split-object/handler.handler
+    #     description: Split Object
+    #     memorySize: 128
+    #     timeout: 180
+    #     role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
     authenticate-google:
         handler: lambdas/authenticate-google/handler.handler
         description: Google Cognito Authentication
