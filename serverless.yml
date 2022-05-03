@@ -1,7 +1,6 @@
 service: datacompress
 
 variablesResolutionMode: 20210326
-useDotenv: true
 
 plugins:
     - serverless-offline
