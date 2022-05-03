@@ -14,7 +14,7 @@ phases:
             - echo Deployment started on `date`
             - echo Deploying with the Serverless Framework
             - echo variable $ENV_NAME
-            - sls doctor && sls deploy -s $ENV_NAME
+            - sls deploy -s $ENV_NAME && sls doctor
 
     post_build:
         commands:
