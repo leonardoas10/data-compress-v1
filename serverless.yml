@@ -4,8 +4,8 @@ variablesResolutionMode: 20210326
 
 plugins:
     - serverless-offline
-    - serverless-dotenv-plugin
     - serverless-python-requirements
+
 provider:
     name: aws
     runtime: python3.9
