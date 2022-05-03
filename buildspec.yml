@@ -9,7 +9,6 @@ phases:
         commands:
             - echo Install source NPM dependencies...
             - npm install
-            - python setup.py install
     build:
         commands:
             - echo Deployment started on `date`
