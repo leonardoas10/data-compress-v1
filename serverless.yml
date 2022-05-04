@@ -101,9 +101,9 @@ functions:
                   path: get-compressed-files
                   method: post
                   cors: true
-                  authorizer:
-                      name: COGNITO_AUTHORIZER
-                      arn: arn:aws:cognito-identity:us-east-1:121116659934:identitypool/us-east-1:d8b354dc-890e-449a-aa63-3fb78ecaee88
+                  #   authorizer:
+                  #       name: COGNITO_AUTHORIZER
+                  #       arn: arn:aws:cognito-identity:us-east-1:121116659934:identitypool/us-east-1:d8b354dc-890e-449a-aa63-3fb78ecaee88
         vpc:
             subnetIds:
                 - 'subnet-07d11a6f1648decfa'
