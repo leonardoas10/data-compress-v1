@@ -4,10 +4,9 @@ import os
 # from google.auth.transport.requests import Request
 # from google.oauth2 import id_token
 
-def generatePolicy(principalId, effect):
+def generatePolicy(principalId, effect, methodArn):
     authResponse = {}
     authResponse['principalId'] = principalId
-    print('leo')
     policyDocument = {
         'Version': '2012-10-17',
         'Statement': [
@@ -15,7 +14,7 @@ def generatePolicy(principalId, effect):
                 'Sid': 'FirstStatement',
                 'Action': 'execute-api:Invoke',
                 'Effect': effect,
-                'Resource': 'arn:aws:apigateway:us-east-1::/restapis/m5y160326l/stages/dev'
+                'Resource': methodArn
             }
         ]
     }
@@ -74,7 +73,7 @@ def handler(event, context) -> str:
         #     'secret_key': secret_key,
         #     'session_key': session_key
         # }
-        policy = generatePolicy(id_response['IdentityId'], 'Allow')
+        policy = generatePolicy(id_response['IdentityId'], 'Allow', event['methodArn'])
         return {
             'statusCode': 200,
             'headers': {
