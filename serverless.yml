@@ -50,8 +50,8 @@ functions:
     #     memorySize: 128
     #     timeout: 180
     #     role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
-    authenticate-google:
-        handler: lambdas/authenticate-google/handler.handler
+    authorizer-google:
+        handler: lambdas/authorizer-google/handler.handler
         description: Google Cognito Authentication
         memorySize: 128
         timeout: 180
@@ -101,7 +101,7 @@ functions:
                   path: get-compressed-files
                   method: post
                   cors: true
-                  authorizer: authenticate-google
+                  authorizer: authorizer-google
         vpc:
             subnetIds:
                 - 'subnet-07d11a6f1648decfa'
