@@ -18,6 +18,7 @@ def handler(event, context):
     try:
         print('EVENT => ', event)
         data = json.loads(event['body'])
+        print('Body => ', data)
 
         sql_get_file="SELECT * from files WHERE id = {}".format(data['id'])
         cursor.execute(sql_get_file)
