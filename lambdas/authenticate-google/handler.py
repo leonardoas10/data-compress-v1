@@ -45,7 +45,7 @@ def handler(event, context) -> str:
         id_response = identity_client.get_id(
             IdentityPoolId= os.getenv('IDENTITY_POOL_ID'),
             Logins={
-                'accounts.google.com': id_token[1]
+                'accounts.google.com': id_token
             }
         )
 
