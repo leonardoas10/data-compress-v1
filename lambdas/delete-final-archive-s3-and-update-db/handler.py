@@ -18,7 +18,6 @@ def handler(event, context):
     try:
         print('EVENT => ', event)
         data = json.loads(event['body'])
-        print('Body => ', data)
 
         sql_get_file="SELECT * from files WHERE id = {}".format(data['id'])
         cursor.execute(sql_get_file)
@@ -37,7 +36,7 @@ def handler(event, context):
             'headers': {
                 'Access-Control-Allow-Origin': '*'
             },
-            'body': json.dumps({'id': data['id']})
+            'body': json.dumps({'ok': True, 'id': data['id']})
         }
     except Exception as e:
         print('Error handler() => ', e)
