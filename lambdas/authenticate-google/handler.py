@@ -73,13 +73,6 @@ def handler(event, context) -> str:
         #     'secret_key': secret_key,
         #     'session_key': session_key
         # }
-        policy = generatePolicy(id_response['IdentityId'], 'Allow', event['methodArn'])
-        return {
-            'statusCode': 200,
-            'headers': {
-                'Access-Control-Allow-Origin': '*'
-            },
-            'body': json.dumps(policy),
-        }
+        return generatePolicy(id_response['IdentityId'], 'Allow', event['methodArn'])
     except Exception as e:
         print('Error handler() => ', e)
