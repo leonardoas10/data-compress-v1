@@ -44,24 +44,13 @@ functions:
         memorySize: 128
         timeout: 180
         role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
-    # split-object:
-    #     handler: lambdas/split-object/handler.handler
-    #     description: Split Object
-    #     memorySize: 128
-    #     timeout: 180
-    #     role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
     authorizer-google:
         handler: lambdas/authorizer-google/handler.handler
-        description: Google Cognito Authentication
+        description: Google Cognito Authorizer
         memorySize: 128
         timeout: 180
         environment:
             IDENTITY_POOL_ID: 'us-east-1:d8b354dc-890e-449a-aa63-3fb78ecaee88'
-        events:
-            - http:
-                  path: auth
-                  method: get
-                  cors: true
     pre-signed-url:
         handler: lambdas/pre-signed-url/handler.handler
         description: Pre Signed URL & Store User If Not Exist
