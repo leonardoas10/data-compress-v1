@@ -19,7 +19,7 @@ def handler(event, context):
         data = json.loads(event['body'])
         user = data['user']
 
-        sql_get_files="SELECT f.id, f.name_extension, f.size, f.updated_at, f.s3_url FROM users u  inner join files f on  f.user_id = u.id WHERE u.email = '{}'  AND f.is_compress = 1  ORDER BY updated_at DESC".format(user['email'])
+        sql_get_files="SELECT f.id, f.name_extension, f.size, f.updated_at, f.s3_url FROM users u  inner join files f on  f.user_id = u.id WHERE u.email = '{}'  AND f.is_compress = 1  ORDER BY f.updated_at DESC".format(user['email'])
         cursor.execute(sql_get_files)
         files = cursor.fetchall()
         db.commit()
