@@ -90,7 +90,9 @@ functions:
                   path: get-compressed-files
                   method: post
                   cors: true
-                  authorizer: authorizer-google
+                  authorizer:
+                      name: authorizer-google
+                      resultTtlInSeconds: 0
         vpc:
             subnetIds:
                 - 'subnet-07d11a6f1648decfa'
@@ -114,7 +116,9 @@ functions:
                   path: delete-final-archive
                   method: post
                   cors: true
-                  authorizer: authorizer-google
+                  authorizer:
+                      name: authorizer-google
+                      resultTtlInSeconds: 0
         vpc:
             subnetIds:
                 - 'subnet-07d11a6f1648decfa'
