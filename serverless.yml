@@ -112,7 +112,7 @@ functions:
         events:
             - http:
                   path: delete-final-archive
-                  method: delete
+                  method: post
                   cors: true
                   authorizer: authorizer-google
         vpc:
