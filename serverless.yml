@@ -137,6 +137,10 @@ functions:
             DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
             DB_DATABASE: 'datacompress'
             SENDER_EMAIL: 'hola@datacompression.click'
+            USERNAME_SMTP: 'AKIARYMY5SDPDRQA2POK'
+            PASSWORD_SMTP: 'BKXXE9/xyENJL+TaLw567PpwMmqOSk2VBpDGgTq3ewcK'
+            PORT: 587
+            HOST: 'email-smtp.us-east-1.amazonaws.com'
         role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
         vpc:
             subnetIds:
