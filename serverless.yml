@@ -136,6 +136,7 @@ functions:
             DB_USERNAME: 'admin'
             DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
             DB_DATABASE: 'datacompress'
+            SENDER_EMAIL: 'hola@datacompression.click'
         role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
         vpc:
             subnetIds:
