@@ -41,14 +41,14 @@ def handler(event, context):
         
         files = enumerate(data['files'])
         for index, file in files:
-            split_path = file['path'].rsplit(".", 1)
+            split_path = data["paths"][index].rsplit(".", 1)
             name = split_path[0]
             extension = split_path[-1]
             sql_file = "INSERT INTO files (user_id, name, extension, type, size, name_extension) VALUES (%s, %s, %s, %s, %s, %s)" 
-            val = (user_id, name, extension, data['types'][index], data['sizes'][index], file['path'])
+            val = (user_id, name, extension, data['types'][index], data['sizes'][index], data["paths"][index])
             cursor.execute(sql_file, val)
             db.commit()
-            custom_key = "{}/{}".format(user_id, file['path'])
+            custom_key = "{}/{}".format(user_id, data["paths"][index])
             presigned_url = s3.generate_presigned_url(
                 ClientMethod='put_object',
                 Params={
