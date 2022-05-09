@@ -30,6 +30,7 @@ functions:
             DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
             DB_DATABASE: 'datacompress'
             S3_URL: 'https://after.datacompression.click/'
+            S3_AFTER_COMPRESS_FILES: 'after-compress-files'
         role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
         vpc:
             subnetIds:
@@ -44,6 +45,8 @@ functions:
         memorySize: 128
         timeout: 180
         role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
+        environment:
+            S3_BEFORE_COMPRESS_FILES: 'before-compress-files'
     authorizer-google:
         handler: lambdas/authorizer-google/handler.handler
         description: Google Cognito Authorizer
@@ -61,6 +64,7 @@ functions:
             DB_USERNAME: 'admin'
             DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
             DB_DATABASE: 'datacompress'
+            S3_BEFORE_COMPRESS_FILES: 'before-compress-files'
         role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
         events:
             - http:
@@ -110,6 +114,7 @@ functions:
             DB_USERNAME: 'admin'
             DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
             DB_DATABASE: 'datacompress'
+            S3_AFTER_COMPRESS_FILES: 'after-compress-files'
         role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
         events:
             - http:
@@ -130,7 +135,7 @@ functions:
         handler: lambdas/batch-read-and-send-email/handler.handler
         description: Read Files In The Range Of 1Hr And Send Mail
         memorySize: 128
-        timeout: 180
+        timeout: 360
         environment:
             DB_HOST: 'datacompress.c7s82rautvg8.us-east-1.rds.amazonaws.com'
             DB_USERNAME: 'admin'
@@ -141,6 +146,8 @@ functions:
             PASSWORD_SMTP: 'BKXXE9/xyENJL+TaLw567PpwMmqOSk2VBpDGgTq3ewcK'
             PORT: 587
             HOST: 'email-smtp.us-east-1.amazonaws.com'
+            SUBJECT: "You're compresses files are ready!"
+            SENDERNAME: 'Data Compress'
         role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
         vpc:
             subnetIds:

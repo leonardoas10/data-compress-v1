@@ -27,7 +27,7 @@ def handler(event, context):
         key = "{}/{}.zip".format(file['user_id'], file['name'])
 
         if not file['deleted_at']:
-            s3.Object('after-compress-files', key).delete()
+            s3.Object(os.getenv("S3_AFTER_COMPRESS_FILES"), key).delete()
             sql_update_file = "UPDATE files SET is_compress = 0, s3_url = NULL, deleted_at = CURRENT_TIMESTAMP WHERE id = {}".format(data['id'])
             cursor.execute(sql_update_file)
             db.commit()

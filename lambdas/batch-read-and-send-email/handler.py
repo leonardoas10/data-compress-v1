@@ -52,9 +52,10 @@ def handler(event, context):
                 # final_template_data_order = '{{{}}}'.format(order_template_data)
 
                 print('email =>' + email)
-                # print('final_template_data_order => ', final_template_data_order)
+                print('template_data => ', template_data)
                 send_email(email, template_data)
 
+### SENDING WITH BOTO3 NOT POSSIBLE 'CAUSE VPC
                 # client.send_templated_email(
                 #     Source=os.getenv("SENDER_EMAIL"),
                 #     Destination={
@@ -65,6 +66,7 @@ def handler(event, context):
                 #     TemplateData= final_template_data_order,
                 #     Template='COMPRESSES_FILES_IN_RANGE_OF_HOUR'
                 # )
+### SENDING WITH BOTO3 NOT POSSIBLE 'CAUSE VPC
 
     except Exception as e:
         print('Error => ', e)
@@ -72,9 +74,9 @@ def handler(event, context):
     
 def send_email(recipient, template_data):
     SENDER = os.getenv("SENDER_EMAIL")  
-    SENDERNAME = 'Data Compress'
+    SENDERNAME = os.getenv("SENDERNAME")
 
-    SUBJECT = 'Amazon SES Test (Python smtplib)'
+    SUBJECT = os.getenv("SUBJECT")
     BODY_TEXT = ("Amazon SES Test\r\n"
                 "This email was sent through the Amazon SES SMTP "
                 "Interface using the Python smtplib package."

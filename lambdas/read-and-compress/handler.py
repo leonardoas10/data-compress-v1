@@ -43,7 +43,7 @@ def handler(event, context):
 
         print('Upload file to s3.')
         archive.seek(0)
-        s3.Object('after-compress-files',complete_file_name).upload_fileobj(archive)
+        s3.Object(os.getenv("S3_AFTER_COMPRESS_FILES"),complete_file_name).upload_fileobj(archive)
         archive.close()
 ## ZIP FILE WITH PYTHON ZIP PACKAGE ###
 

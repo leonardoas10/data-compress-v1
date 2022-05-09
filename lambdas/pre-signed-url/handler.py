@@ -15,8 +15,8 @@ s3 = boto3.client('s3')
 
 def handler(event, context):
     try:
-        init_time = datetime.now()
-        print('Init Lambda => ', init_time)
+        # init_time = datetime.now()
+        # print('Init Lambda => ', init_time)
         
         data = json.loads(event['body'])
         user = data['user']
@@ -52,7 +52,7 @@ def handler(event, context):
             presigned_url = s3.generate_presigned_url(
                 ClientMethod='put_object',
                 Params={
-                    'Bucket': 'before-compress-files',
+                    'Bucket': os.getenv("S3_BEFORE_COMPRESS_FILES"),
                     'Key': custom_key,
                     'ContentType' : data['types'][index]
                 }
@@ -60,8 +60,8 @@ def handler(event, context):
             urls[custom_key] = presigned_url
 
           
-        duration = datetime.now() - init_time
-        print('Finish Time in seconds => ', duration.total_seconds())
+        # duration = datetime.now() - init_time
+        # print('Finish Time in seconds => ', duration.total_seconds())
         return {
             'statusCode': 200,
             'headers': {
