@@ -16,4 +16,4 @@ Si quieres levantar un ambiente local para probar las api gateway, ejecuta:
 
 ## ARQUITECTURA
 
-![]()
+![](assets/File-compress-v2.png)
