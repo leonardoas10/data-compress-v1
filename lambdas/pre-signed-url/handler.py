@@ -29,7 +29,8 @@ def handler(event, context):
 
         if exist_user == 0: ## CREATE NEW USER
             sql_user = "INSERT INTO users (email, firstname, lastname, profile_img) VALUES (%s, %s, %s, %s)" 
-            val = (user['email'], user['givenName'], user['familyName'], user['imageUrl'])
+            # val = (user['email'], user['givenName'], user['familyName'], user['imageUrl'])
+            val = (user['email'], user['given_name'], user['family_name'], user['picture'])
             cursor.execute(sql_user, val)
             db.commit()
             cursor.execute(sql_get_user)
