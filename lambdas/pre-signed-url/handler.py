@@ -42,12 +42,11 @@ def handler(event, context):
         
         files = enumerate(data['files'])
         for index, f in files:
-            print('F => ', f)
             split_path = data["paths"][index].rsplit(".", 1)
             name = split_path[0]
             extension = split_path[-1]
-            sql_file = "INSERT INTO files (user_id, name, extension, type, size, name_extension) VALUES (%s, %s, %s, %s, %s, %s)" 
-            val = (user_id, name, extension, data['types'][index], data['sizes'][index], data["paths"][index])
+            sql_file = "INSERT INTO files (user_id, name, extension, type, size, name_extension, original_name) VALUES (%s, %s, %s, %s, %s, %s)" 
+            val = (user_id, name, extension, data['types'][index], data['sizes'][index], data["paths"][index], f['path'])
             cursor.execute(sql_file, val)
             db.commit()
             custom_key = "{}/{}".format(user_id, data["paths"][index])
