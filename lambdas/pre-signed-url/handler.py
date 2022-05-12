@@ -41,7 +41,8 @@ def handler(event, context):
         urls = dict()
         
         files = enumerate(data['files'])
-        for index, _ in files:
+        for index, f in files:
+            print('F => ', f)
             split_path = data["paths"][index].rsplit(".", 1)
             name = split_path[0]
             extension = split_path[-1]
