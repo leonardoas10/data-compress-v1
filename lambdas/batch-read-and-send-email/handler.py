@@ -29,24 +29,21 @@ def handler(event, context):
             emails.append(user['email'])
 
         datas = []
-        fi = []
 
         for email in list(set(emails)): # delete duplicated users
-            sql_get_files="SELECT f.s3_url FROM users u inner join files f on  f.user_id = u.id WHERE u.email = '{}'  AND f.is_compress = 1 AND f.updated_at > DATE_SUB(NOW(), INTERVAL '1' HOUR) ORDER BY f.updated_at DESC".format(email)
+            sql_get_files="SELECT f.s3_url, f.original_name FROM users u inner join files f on  f.user_id = u.id WHERE u.email = '{}'  AND f.is_compress = 1 AND f.updated_at > DATE_SUB(NOW(), INTERVAL '1' HOUR) ORDER BY f.updated_at DESC".format(email)
             cursor.execute(sql_get_files)
             files = cursor.fetchall()
             db.commit()
-            for file in files:
-                fi.append(file['s3_url'])
-            datas.append({email: fi})
+            datas.append({email: files})
 
-        if len(fi) > 0 :
+        if len(datas) > 0 :
             for data in datas:
                 email = list(data.keys())[0]
-                s3_urls = data[email]
+                urls = data[email]
                 template_data = ''
-                for s3_url in s3_urls:
-                    template_data += "<li><a href='{}'>{}</a></li>".format(s3_url, s3_url)
+                for url in urls:
+                    template_data += "<li><a href='{}'>{}</a></li>".format(url['s3_url'], url['original_name'])
 
                 # order_template_data = '"URLS": "{}" '.format(template_data)
                 # final_template_data_order = '{{{}}}'.format(order_template_data)
